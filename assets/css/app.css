@@ -1,0 +1,298 @@
+
+:root {
+    --body-bg: #ececec;
+    --nav-bg: #ffffff;
+    --nav-icons-color: #4f4f4f;
+    --container-bg: #ffffff;
+    --text-color: #828282;
+    --title-color: #4f4f4f;
+    --action-color: #706ed9;
+
+    --toggle-bg: #c4c4c4;
+    --toggle-dot-bg: #ffffff;
+
+    --interaction-color: #4f4f4f;
+    --interaction-active-color: #ffa600;
+}
+
+.dark-mode:root {
+    --body-bg: #262626;
+    --nav-bg: #414141;
+    --nav-icons-color: #c5c5c5;
+    --container-bg: #414141;
+    --text-color: #ababab;
+    --title-color: #c5c5c5;
+
+    --toggle-bg: #595959;
+    --toggle-dot-bg: #a6a6a6;
+}
+
+.display-in-dark,
+.display-in-light {
+    display: none !important;
+}
+
+html:not(.dark-mode) .display-in-light {
+    display: inherit !important;
+}
+
+html.dark-mode .display-in-dark {
+    display: inherit !important;
+}
+
+@font-face {
+    font-family: "Rubik";
+    src: url("/assets/fonts/Rubik/Rubik.ttf") format("ttf");
+}
+
+*::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: rgba(128, 128, 128, .6);
+    background-clip: padding-box;
+}
+
+.j-navbar {
+    position: fixed;
+    left: 10px;
+    top: 10px;
+    bottom: 10px;
+    display: flex;
+    border-radius: 8px;
+    flex-direction: column;
+    box-shadow: 0 0 3px rgba(0, 0, 0, .2);
+    background-color: var(--nav-bg);
+    padding: 8px;
+    z-index: 999;
+}
+
+.j-navbar .j-navbar-brand {
+    position: relative;
+    display: flex;
+    align-items: center;
+    color: var(--title-color);
+    gap: 8px;
+}
+
+.j-navbar .j-navbar-brand .icon {
+    font-size: 17pt;
+    color: var(--nav-icons-color);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 40px;
+    cursor: pointer;
+}
+
+.j-navbar .j-navbar-brand .brand {
+    position: absolute;
+    left: calc(100% + 10px);
+    transition: all .2s ease;
+    pointer-events: none;
+    display: flex !important;
+    white-space: nowrap;
+    opacity: 0;
+}
+
+.j-navbar .j-navbar-brand:hover .brand {
+    left: calc(100% + 20px);
+    opacity: 1;
+}
+
+.j-navbar .j-navbar-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+.j-navbar .j-navbar-menu.full-size {
+    flex: 1;
+}
+
+.j-navbar .j-navbar-menu .j-nav-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    gap: 8px;
+}
+
+.j-navbar .j-navbar-menu .j-nav-item:hover {
+    background-color: rgba(128, 128, 128, .2);
+    cursor: pointer;
+}
+
+.j-navbar .j-navbar-menu .j-nav-item.active:before {
+    position: absolute;
+    background: var(--action-color);
+    height: 5px;
+    width: 5px;
+    border-radius: 50%;
+    content: '';
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+}
+
+.j-navbar .j-navbar-menu .j-nav-item.active .icon {
+    color: var(--action-color);
+}
+
+.j-navbar .j-navbar-menu .j-nav-item .icon {
+    font-size: 17pt;
+    color: var(--nav-icons-color);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .1s;
+    border-radius: 40px;
+}
+
+.j-navbar .j-navbar-menu .j-nav-item .title {
+    color: var(--title-color);
+    padding: 0 16px 0 8px;
+}
+
+.j-navbar .j-navbar-menu .j-nav-item .title {
+    position: absolute;
+    left: calc(100% + 10px);
+    transition: all .2s ease;
+    pointer-events: none;
+    display: flex !important;
+    white-space: nowrap;
+    opacity: 0;
+}
+
+.j-navbar .j-navbar-menu .j-nav-item:hover .title {
+    left: calc(100% + 20px);
+    opacity: 1;
+}
+
+@media screen and (max-width: 991px) {
+    .j-navbar,
+    .j-navbar.minimized {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        top: initial;
+        flex-direction: row;
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .j-navbar .j-navbar-brand {
+        display: none;
+    }
+
+    .j-navbar .j-navbar-menu {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .j-navbar .j-navbar-menu .j-nav-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .j-navbar .j-navbar-menu .j-nav-item .icon {
+        font-size: 16pt;
+    }
+
+    .j-navbar .j-navbar-menu .j-nav-item .title {
+        all: unset !important;
+        font-size: 8pt !important;
+    }
+}
+
+/* Modal styles */
+.j-modal-content {
+    border-radius: 8px;
+    background-color: var(--container-bg) !important;
+    color: var(--title-color) !important;
+    animation: popup .2s ease-in-out forwards;
+}
+
+.j-modal-content .modal-header {
+    font-size: 12pt;
+    color: var(--title-color);
+    border-color: rgba(128, 128, 128, .3);
+}
+
+.j-modal-content .modal-header .close {
+    cursor: pointer;
+}
+
+.j-modal-content .modal-footer {
+    font-size: 12pt;
+    color: var(--title-color);
+    border-color: rgba(128, 128, 128, .3);
+}
+
+.j-settings-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.j-settings-list .setting-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 12px 8px;
+}
+
+.j-settings-list .setting-item:hover {
+    backdrop-filter: brightness(95%);
+}
+
+.toggle {
+    width: 40px;
+    height: 20px;
+    border-radius: 40px;
+    background-color: var(--toggle-bg);
+    border: solid 2px var(--toggle-bg);
+    position: relative;
+}
+
+.toggle .dot {
+    height: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    position: absolute;
+    background-color: var(--toggle-dot-bg);
+    color: var(--toggle-bg);
+    transition: all .1s;
+    font-size: 6pt;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+}
+
+.toggle input:checked + .dot {
+    left: 100%;
+    transform: translate(-100%);
+}
+
+@keyframes popup {
+    0% {
+        transform: scale(0.8);
+    }
+    60% {
+        transform: scale(1.02);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

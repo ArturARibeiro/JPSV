@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Inicio</title>
+
+    <link rel="stylesheet" href="../../assets/css/app.css">
+    <link rel="stylesheet" href="../../assets/css/fancybox.css">
+    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <style>
+        body {
+            font-family: Rubik, sans-serif;
+            background-color: var(--body-bg);
+        }
+
+        /* Content Area */
+        .content {
+            display: flex;
+            flex-direction: column;
+            padding: 12px 16px 16px 80px;
+            gap: 16px;
+        }
+
+        .j-carousel {
+            display: flex;
+        }
+
+        .j-carousel .carousel-inner {
+            width: 100%;
+            background: rgba(128, 128, 128, .4);
+            border-radius: 8px;
+        }
+
+        .j-carousel .carousel-item  {
+            width: 100%;
+            aspect-ratio: 3;
+            position: relative;
+        }
+
+        .j-carousel .carousel-item:before  {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, .7) 40%, rgba(0, 0, 0, .1));
+            content: '';
+        }
+
+        .j-carousel .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .j-carousel .carousel-item .info  {
+            position: absolute;
+            bottom: 0;
+            padding: 32px;
+        }
+
+        .j-carousel .carousel-item .info .title  {
+            font-size: 25pt;
+            color: white;
+        }
+
+        .j-carousel .carousel-item .info .description  {
+            color: #d2d2d2;
+        }
+
+        .j-news-list .j-news {
+            background: var(--container-bg);
+            margin-bottom: 16px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            box-shadow: 0 0 4px rgba(0, 0, 0, .2);
+        }
+
+        .j-news-list .j-news .image {
+            height: 160px;
+            overflow: hidden;
+            border-radius: 8px 2px 8px 2px;
+        }
+
+        .j-news-list .j-news .image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .j-news-list .j-news .info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 8px;
+            gap: 8px;
+        }
+
+        .j-news-list .j-news .info .title {
+            font-size: 12pt;
+            color: var(--title-color);
+        }
+
+        .j-news-list .j-news .info .date {
+            font-size: 8pt;
+            color: var(--text-color);
+            padding: 8px 0;
+        }
+    </style>
+</head>
+<body>
+<main class="main">
+    <nav class="j-navbar">
+        <div class="j-navbar-brand">
+            <div class="icon">
+                <i class="bi bi-app"></i>
+            </div>
+
+            <div class="brand">Jornal Parque São Vincente</div>
+        </div>
+        <div class="j-navbar-menu full-size">
+            <a href="../../index.html" class="j-nav-item">
+                <div class="icon"><i class="bi bi-rss"></i></div>
+                <div class="title">Feed</div>
+            </a>
+            <a href="index.html" class="j-nav-item active">
+                <div class="icon"><i class="bi bi-newspaper"></i></div>
+                <div class="title">Notícias</div>
+            </a>
+            <a href="#" class="j-nav-item">
+                <div class="icon"><i class="bi bi-bookmarks"></i></div>
+                <div class="title">Categorias</div>
+            </a>
+            <div class="j-nav-item">
+                <div class="icon"><i class="bi bi-geo-alt"></i></div>
+                <div class="title">Locais</div>
+            </div>
+        </div>
+
+        <div class="j-navbar-menu">
+            <div class="j-nav-item" onclick="$(`#settings-modal`).modal('show')">
+                <div class="icon"><i class="bi bi-gear"></i></div>
+                <div class="title">Configurações</div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content">
+        <!-- News Slider -->
+        <div id="news-slider" class="carousel j-carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner carousel-fade">
+                <div class="carousel-item active">
+                    <img src="https://th.bing.com/th/id/R.e9ea962e02082e7e2c7f3815a71a8364?rik=26PM4sbj%2bd4yIw&pid=ImgRaw&r=0">
+                    <div class="info">
+                        <div class="title">Lorem Ipsum</div>
+                        <div class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="https://www.imagesource.com/wp-content/uploads/2019/06/Rio.jpg">
+                    <div class="info">
+                        <div class="title">Lorem Ipsum</div>
+                        <div class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main News -->
+        <h3 style="color: var(--title-color); margin-top: 20px; padding: 0 8px;">Notícias</h3>
+        <div class="j-news-list">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="j-news">
+                        <div class="image">
+                            <img src="https://www.blogenium.com/wp-content/uploads/2019/09/Blogenium-Miscellaneous-4K-Wallpapers-11.jpg"
+                                 alt="">
+                        </div>
+                        <div class="info">
+                            <div class="title">Lorem ipsum dollar lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
+                            <div class="date">12/03/2021</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="j-news">
+                        <div class="image">
+                            <img src="https://www.blogenium.com/wp-content/uploads/2019/09/Blogenium-Miscellaneous-4K-Wallpapers-11.jpg"
+                                 alt="">
+                        </div>
+                        <div class="info">
+                            <div class="title">Lorem ipsum dollar lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
+                            <div class="date">12/03/2021</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="j-news">
+                        <div class="image">
+                            <img src="https://www.blogenium.com/wp-content/uploads/2019/09/Blogenium-Miscellaneous-4K-Wallpapers-11.jpg"
+                                 alt="">
+                        </div>
+                        <div class="info">
+                            <div class="title">Lorem ipsum dollar lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
+                            <div class="date">12/03/2021</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="j-news">
+                        <div class="image">
+                            <img src="https://www.blogenium.com/wp-content/uploads/2019/09/Blogenium-Miscellaneous-4K-Wallpapers-11.jpg"
+                                 alt="">
+                        </div>
+                        <div class="info">
+                            <div class="title">Lorem ipsum dollar lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
+                            <div class="date">12/03/2021</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="j-news">
+                        <div class="image">
+                            <img src="https://www.blogenium.com/wp-content/uploads/2019/09/Blogenium-Miscellaneous-4K-Wallpapers-11.jpg"
+                                 alt="">
+                        </div>
+                        <div class="info">
+                            <div class="title">Lorem ipsum dollar lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
+                            <div class="date">12/03/2021</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="j-news">
+                        <div class="image">
+                            <img src="https://www.blogenium.com/wp-content/uploads/2019/09/Blogenium-Miscellaneous-4K-Wallpapers-11.jpg"
+                                 alt="">
+                        </div>
+                        <div class="info">
+                            <div class="title">Lorem ipsum dollar lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
+                            <div class="date">12/03/2021</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<div class="modal" tabindex="-1" id="settings-modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content j-modal-content j-modal-popup">
+            <div class="modal-header">
+                <div class="modal-title">Configurações</div>
+                <div class="close" data-bs-dismiss="modal"><i class="bi bi-x"></i></div>
+            </div>
+            <div class="modal-body">
+                <div class="j-settings-list">
+                    <label class="setting-item">
+                        Tema escuro
+
+                        <span class="toggle">
+                            <input type="checkbox" id="dark_theme_check" onchange="toggleDarkMode()" hidden>
+                            <span class="dot">
+                                <i class="bi bi-moon-fill display-in-dark"></i>
+                                <i class="bi bi-sun-fill display-in-light"></i>
+                            </span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../../assets/js/bootstrap.bundle.min.js"></script>
+<script src="../../assets/js/fancybox.umd.js"></script>
+<script src="../../assets/js/jquery.js"></script>
+
+<script>
+    $(() => {
+        const theme = sessionStorage.getItem('theme');
+        const themeToggle = $(`#dark_theme_check`);
+        const html = $('html');
+
+        theme == 'dark'
+            ? html.addClass('dark-mode')
+            : html.removeClass('dark-mode');
+
+        themeToggle.prop('checked', theme == 'dark');
+    })
+
+    function toggleDarkMode() {
+        const theme = sessionStorage.getItem('theme');
+        const html = $('html');
+
+        if (theme == 'dark') {
+            sessionStorage.setItem('theme', 'light');
+            html.removeClass('dark-mode');
+        } else {
+            sessionStorage.setItem('theme', 'dark');
+            html.addClass('dark-mode');
+        }
+    }
+</script>
+</body>
+</html>
