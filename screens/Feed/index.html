@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Inicio</title>
+
+    <link rel="stylesheet" href="./assets/css/app.css">
+    <link rel="stylesheet" href="./assets/css/fancybox.css">
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <style>
+        body {
+            font-family: Rubik, sans-serif;
+            background-color: var(--body-bg);
+        }
+
+        /* Content Area */
+        .content {
+            display: flex;
+            justify-content: center;
+        }
+
+        .content .j-feed {
+            display: flex;
+            flex-direction: column;
+            width: clamp(200px, 100vw, 550px);
+            padding: 16px 0;
+            gap: 16px;
+        }
+
+        .content .j-feed .j-publication {
+            background-color: var(--container-bg);
+            border-radius: 8px;
+            box-shadow: 0 0 3px rgba(128, 128, 128, .2);
+        }
+
+        .content .j-feed .j-publication .title {
+            color: var(--title-color);
+            padding: 12px 8px 8px;
+        }
+
+        .content .j-feed .j-publication .media {
+            display: flex;
+            flex-wrap: wrap-reverse;
+            gap: 2px;
+        }
+
+        .content .j-feed .j-publication .media .image {
+            flex: 1;
+            aspect-ratio: 4 / 3;
+            min-width: 32%;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .content .j-feed .j-publication .media .image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .content .j-feed .j-publication .interactions {
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .content .j-feed .j-publication .interactions .interaction {
+            cursor: pointer;
+            display: flex;
+            width: fit-content;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            gap: 8px;
+        }
+
+        .content .j-feed .j-publication .interactions .interaction.liked {
+            color: var(--interaction-active-color);
+        }
+
+        .content .j-feed .j-publication .interactions .interaction .icon,
+        .content .j-feed .j-publication .interactions .interaction .icon * {
+            font-size: 16pt;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .content .j-feed .j-publication .interactions .interaction .count {
+            font-size: 10pt;
+            height: 15px;
+        }
+
+        .content .j-feed .j-add-sense {
+            position: relative;
+            border-radius: 8px;
+            background-color: var(--container-bg);
+            box-shadow: 0 0 3px rgba(128, 128, 128, .2);
+            max-height: 200px;
+            overflow: hidden;
+        }
+
+        .content .j-feed .j-add-sense img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .content .j-feed .j-add-sense::before {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, .5);
+            backdrop-filter: blur(2px);
+            content: 'Visitar anuncio';
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            opacity: 0;
+            transition: all .2s;
+        }
+
+        .content .j-feed .j-add-sense:hover::before {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+<main class="main">
+    <nav class="j-navbar">
+        <div class="j-navbar-brand">
+            <div class="icon">
+                <i class="bi bi-app"></i>
+            </div>
+
+            <div class="brand">Jornal Parque São Vincente</div>
+        </div>
+        <div class="j-navbar-menu full-size">
+            <a href="index.html" class="j-nav-item active">
+                <div class="icon"><i class="bi bi-rss"></i></div>
+                <div class="title">Feed</div>
+            </a>
+            <a href="./screens/News/index.html" class="j-nav-item">
+                <div class="icon"><i class="bi bi-newspaper"></i></div>
+                <div class="title">Notícias</div>
+            </a>
+            <a href="#" class="j-nav-item">
+                <div class="icon"><i class="bi bi-bookmarks"></i></div>
+                <div class="title">Categorias</div>
+            </a>
+            <div class="j-nav-item">
+                <div class="icon"><i class="bi bi-geo-alt"></i></div>
+                <div class="title">Locais</div>
+            </div>
+        </div>
+
+        <div class="j-navbar-menu">
+            <div class="j-nav-item" onclick="$(`#settings-modal`).modal('show')">
+                <div class="icon"><i class="bi bi-gear"></i></div>
+                <div class="title">Configurações</div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content">
+        <div class="j-feed"></div>
+    </div>
+</main>
+
+<div class="modal" tabindex="-1" id="settings-modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content j-modal-content j-modal-popup">
+            <div class="modal-header">
+                <div class="modal-title">Configurações</div>
+                <div class="close" data-bs-dismiss="modal"><i class="bi bi-x"></i></div>
+            </div>
+            <div class="modal-body">
+                <div class="j-settings-list">
+                    <label class="setting-item">
+                        Tema escuro
+
+                        <span class="toggle">
+                            <input type="checkbox" id="dark_theme_check" onchange="toggleDarkMode()" hidden>
+                            <span class="dot">
+                                <i class="bi bi-moon-fill display-in-dark"></i>
+                                <i class="bi bi-sun-fill display-in-light"></i>
+                            </span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="./assets/js/bootstrap.bundle.min.js"></script>
+<script src="./assets/js/fancybox.umd.js"></script>
+<script src="./assets/js/jquery.js"></script>
+
+<script>
+    $(() => {
+        const theme = sessionStorage.getItem('theme');
+        const themeToggle = $(`#dark_theme_check`);
+        const html = $('html');
+
+        theme == 'dark'
+            ? html.addClass('dark-mode')
+            : html.removeClass('dark-mode');
+
+        themeToggle.prop('checked', theme == 'dark');
+        Fancybox.bind("[data-fancybox]");
+        loadFeed();
+    })
+
+    function toggleDarkMode() {
+        const theme = sessionStorage.getItem('theme');
+        const html = $('html');
+
+        if (theme == 'dark') {
+            sessionStorage.setItem('theme', 'light');
+            html.removeClass('dark-mode');
+        } else {
+            sessionStorage.setItem('theme', 'dark');
+            html.addClass('dark-mode');
+        }
+    }
+
+    function loadFeed() {
+        const container = $(`.j-feed`);
+        const data = [
+            {
+                id: 1,
+                title: 'PISTA DE CAMINHADA RECEBEU CAPINAÇÃO NESTA SEXTA-FEIRA (25) \n' +
+                    'Metade da Pista está feita.\n' +
+                    'Que bom, essa é a imagem que gostamos de ver, é o mínimo que o poder público deve fazer, deixar nossas pistas, praças e vielas limpas.\n' +
+                    'Agora nós devemos fazer nossa parte em não jogar lixos, entulhos,  barulhos e principalmente você que leva seu filho ou filha de patas 🐾  recolher seu 💩💩💩\n' +
+                    'Agradecemos a Senhor Secretário @fernandorubinelli por atender a população.',
+                media: [
+                    {
+                        picture_uri: 'https://vidacelular.com.br/wp-content/plugins/accelerated-mobile-pages/images/SD-default-image.png',
+                    },
+                ],
+                liked: false,
+                like_count: 200,
+                comment_count: 20,
+            },
+            {
+                id: 2,
+                title: 'Lançamento OUTONO 🍂\n' +
+                    'A nova estação já está chegando, e com isso nossos looks mais quentinhos já estão na áreaaaa!!!\n' +
+                    'Faça seu pedido no WhatsApp:\n' +
+                    '(11) 96449-9670 Camille \n' +
+                    '(11) 99524-3429 Madu \n' +
+                    'Ou venha até nossa loja física:\n' +
+                    'Rua Carlos de Campos n• 249 parque São Vicente Mauá',
+                media: [
+                    {
+                        picture_uri: 'https://vidacelular.com.br/wp-content/plugins/accelerated-mobile-pages/images/SD-default-image.png'
+                    },
+                    {
+                        picture_uri: 'https://vidacelular.com.br/wp-content/plugins/accelerated-mobile-pages/images/SD-default-image.png'
+                    },
+                    {
+                        picture_uri: 'https://vidacelular.com.br/wp-content/plugins/accelerated-mobile-pages/images/SD-default-image.png'
+                    },
+                    {
+                        picture_uri: 'https://vidacelular.com.br/wp-content/plugins/accelerated-mobile-pages/images/SD-default-image.png'
+                    },
+                    {
+                        picture_uri: 'https://vidacelular.com.br/wp-content/plugins/accelerated-mobile-pages/images/SD-default-image.png'
+                    },
+                ],
+                liked: true,
+                like_count: 20,
+                comment_count: 10,
+            },
+        ];
+
+        $.each(data, (i, val) => {
+            container.append(publication(val));
+        })
+    }
+
+    function publication(data) {
+        return `
+            <div class="j-publication">
+                <div class="title">${data.title}</div>
+                <div class="media">
+                     ${data.media.map(({picture_uri}) => `<div class="image"><img src="${picture_uri}" data-fancybox="pub-${data.id}" alt=""></div>`).join('')}
+                </div>
+                <div class="interactions">
+                    <div class="interaction ${data.liked ? 'liked' : ''}">
+                        <div class="icon">
+                            <i class="bi bi-star${data.liked ? '-fill' : ''}"></i>
+                        </div>
+                        <div class="count">${data.like_count}</div>
+                    </div>
+                    <div class="interaction">
+                        <div class="icon">
+                            <i class="bi bi-chat"></i>
+                        </div>
+                        <div class="count">${data.comment_count}</div>
+                    </div>
+                </div>
+            </div>`;
+    }
+</script>
+</body>
+</html>

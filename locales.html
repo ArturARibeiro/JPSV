@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Categorias</title>
+
+  <link rel="stylesheet" href="./assets/css/app.css">
+  <link rel="stylesheet" href="./assets/css/fancybox.css">
+  <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+  <style>
+    .j-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-size: 14pt;
+      color: var(--title-color);
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<main class="main">
+  <nav class="j-navbar">
+    <div class="j-navbar-user">
+      <div class="picture">
+        <img src="https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg" alt="user image">
+      </div>
+      <div class="name">Lorem Ipsum</div>
+    </div>
+    <div class="j-navbar-menu full-size">
+      <a href="index.html" class="j-nav-item">
+        <div class="icon"><i class="bi bi-newspaper"></i></div>
+        <div class="title">Notícias</div>
+      </a>
+      <a href="category.html" class="j-nav-item">
+        <div class="icon"><i class="bi bi-bookmarks"></i></div>
+        <div class="title">Categorias</div>
+      </a>
+      <a href="locales.html" class="j-nav-item active">
+        <div class="icon"><i class="bi bi-geo-alt"></i></div>
+        <div class="title">Locais</div>
+      </a>
+    </div>
+
+    <div class="j-navbar-menu">
+      <div class="j-nav-item" onclick="$(`#settings-modal`).modal('show')">
+        <div class="icon"><i class="bi bi-gear"></i></div>
+        <div class="title">Configurações</div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="j-content">
+    <i class="bi bi-info-circle" style="font-size: 30pt"></i>
+    O objetivo dessa tela é exibir um mapa do bairro com alguns pontos marcados, como restaurantes, <br> lanchonetes, salões, entre outros comércios ou pontos para a visita dos usuários.
+  </div>
+</main>
+
+<div class="modal" tabindex="-1" id="settings-modal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content j-modal-content j-modal-popup">
+      <div class="modal-header">
+        <div class="modal-title">Configurações</div>
+        <div class="close" data-bs-dismiss="modal"><i class="bi bi-x"></i></div>
+      </div>
+      <div class="modal-body">
+        <div class="j-settings-list">
+          <label class="setting-item">
+            Tema escuro
+
+            <span class="toggle">
+                            <input type="checkbox" id="dark_theme_check" onchange="toggleDarkMode()" hidden>
+                            <span class="dot">
+                                <i class="bi bi-moon-fill display-in-dark"></i>
+                                <i class="bi bi-sun-fill display-in-light"></i>
+                            </span>
+                        </span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="./assets/js/bootstrap.bundle.min.js"></script>
+<script src="./assets/js/fancybox.umd.js"></script>
+<script src="./assets/js/jquery.js"></script>
+
+<script>
+  $(() => {
+    const theme = sessionStorage.getItem('theme');
+    const themeToggle = $(`#dark_theme_check`);
+    const html = $('html');
+
+    theme === 'dark'
+            ? html.addClass('dark-mode')
+            : html.removeClass('dark-mode');
+
+    themeToggle.prop('checked', theme === 'dark');
+  })
+
+  function toggleDarkMode() {
+    const theme = sessionStorage.getItem('theme');
+    const html = $('html');
+
+    if (theme === 'dark') {
+      sessionStorage.setItem('theme', 'light');
+      html.removeClass('dark-mode');
+    } else {
+      sessionStorage.setItem('theme', 'dark');
+      html.addClass('dark-mode');
+    }
+  }
+</script>
+</body>
+</html>

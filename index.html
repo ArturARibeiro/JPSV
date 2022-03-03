@@ -12,153 +12,135 @@
     <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <style>
-        body {
-            font-family: Rubik, sans-serif;
-            background-color: var(--body-bg);
-        }
 
         /* Content Area */
-        .content {
+        .j-carousel {
             display: flex;
-            justify-content: center;
         }
 
-        .content .j-feed {
-            display: flex;
-            flex-direction: column;
-            width: clamp(200px, 100vw, 550px);
-            padding: 16px 0;
-            gap: 16px;
-        }
-
-        .content .j-feed .j-publication {
-            background-color: var(--container-bg);
-            border-radius: 8px;
-            box-shadow: 0 0 3px rgba(128, 128, 128, .2);
-        }
-
-        .content .j-feed .j-publication .title {
-            color: var(--title-color);
-            padding: 12px 8px 8px;
-        }
-
-        .content .j-feed .j-publication .media {
-            display: flex;
-            flex-wrap: wrap-reverse;
-            gap: 2px;
-        }
-
-        .content .j-feed .j-publication .media .image {
-            flex: 1;
-            aspect-ratio: 4 / 3;
-            min-width: 32%;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .content .j-feed .j-publication .media .image img {
+        .j-carousel .carousel-inner {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            background: rgba(128, 128, 128, .4);
+            border-radius: 8px;
         }
 
-        .content .j-feed .j-publication .interactions {
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
-
-        .content .j-feed .j-publication .interactions .interaction {
-            cursor: pointer;
-            display: flex;
-            width: fit-content;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-color);
-            gap: 8px;
-        }
-
-        .content .j-feed .j-publication .interactions .interaction.liked {
-            color: var(--interaction-active-color);
-        }
-
-        .content .j-feed .j-publication .interactions .interaction .icon,
-        .content .j-feed .j-publication .interactions .interaction .icon * {
-            font-size: 16pt;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .content .j-feed .j-publication .interactions .interaction .count {
-            font-size: 10pt;
-            height: 15px;
-        }
-
-        .content .j-feed .j-add-sense {
+        .j-carousel .carousel-item  {
+            width: 100%;
+            aspect-ratio: 3;
             position: relative;
-            border-radius: 8px;
-            background-color: var(--container-bg);
-            box-shadow: 0 0 3px rgba(128, 128, 128, .2);
-            max-height: 200px;
-            overflow: hidden;
         }
 
-        .content .j-feed .j-add-sense img {
-            height: 100%;
-            width: 100%;
-            object-fit: cover;
-        }
-
-        .content .j-feed .j-add-sense::before {
+        .j-carousel .carousel-item:before  {
             position: absolute;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, .5);
-            backdrop-filter: blur(2px);
-            content: 'Visitar anuncio';
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            cursor: pointer;
-            opacity: 0;
-            transition: all .2s;
+            background: linear-gradient(to top, rgba(0, 0, 0, .7) 40%, rgba(0, 0, 0, .1));
+            content: '';
         }
 
-        .content .j-feed .j-add-sense:hover::before {
-            opacity: 1;
+        .j-carousel .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .j-carousel .carousel-item .info  {
+            position: absolute;
+            bottom: 0;
+            padding: 32px;
+        }
+
+        .j-carousel .carousel-item .info .title  {
+            font-size: clamp(12pt, 2.5vw, 25pt);
+            color: white;
+        }
+
+        .j-carousel .carousel-item .info .description  {
+            color: #d2d2d2;
+        }
+
+        @media screen and (max-width: 991px) {
+            .j-carousel .carousel-item {
+                aspect-ratio: 1.5;
+            }
+
+            .j-carousel .carousel-item .info  {
+                padding: 16px;
+            }
+        }
+
+        .j-news-list .j-news {
+            background: var(--container-bg);
+            margin-bottom: 16px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            box-shadow: 0 0 4px rgba(0, 0, 0, .2);
+        }
+
+        .j-news-list .j-news .image {
+            height: 160px;
+            aspect-ratio: 1;
+            overflow: hidden;
+            border-radius: 8px 2px 8px 2px;
+        }
+
+        .j-news-list .j-news .image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .j-news-list .j-news .info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 8px;
+            gap: 8px;
+        }
+
+        .j-news-list .j-news .info .title {
+            font-size: 12pt;
+            color: var(--title-color);
+        }
+
+        .j-news-list .j-news .info .date {
+            font-size: 8pt;
+            color: var(--text-color);
+            padding: 8px 0;
         }
     </style>
 </head>
 <body>
 <main class="main">
     <nav class="j-navbar">
-        <div class="j-navbar-brand">
-            <div class="icon">
-                <i class="bi bi-app"></i>
-            </div>
+<!--        <div class="j-navbar-brand">-->
+<!--            <div class="icon">-->
+<!--                <i class="bi bi-app"></i>-->
+<!--            </div>-->
 
-            <div class="brand">Jornal Parque São Vincente</div>
+<!--            <div class="brand">Jornal Parque São Vincente</div>-->
+<!--        </div>-->
+        <div class="j-navbar-user">
+            <div class="picture">
+                <img src="https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg" alt="user image">
+            </div>
+            <div class="name">Lorem Ipsum</div>
         </div>
         <div class="j-navbar-menu full-size">
             <a href="index.html" class="j-nav-item active">
-                <div class="icon"><i class="bi bi-rss"></i></div>
-                <div class="title">Feed</div>
-            </a>
-            <a href="./screens/News/index.html" class="j-nav-item">
                 <div class="icon"><i class="bi bi-newspaper"></i></div>
                 <div class="title">Notícias</div>
             </a>
-            <a href="#" class="j-nav-item">
+            <a href="category.html" class="j-nav-item">
                 <div class="icon"><i class="bi bi-bookmarks"></i></div>
                 <div class="title">Categorias</div>
             </a>
-            <div class="j-nav-item">
+            <a href="locales.html" class="j-nav-item">
                 <div class="icon"><i class="bi bi-geo-alt"></i></div>
                 <div class="title">Locais</div>
-            </div>
+            </a>
         </div>
 
         <div class="j-navbar-menu">
@@ -169,8 +151,105 @@
         </div>
     </nav>
 
-    <div class="content">
-        <div class="j-feed"></div>
+    <div class="j-content">
+        <!-- News Slider -->
+        <div id="news-slider" class="carousel j-carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner carousel-fade">
+                <div class="carousel-item active">
+                    <img src="https://th.bing.com/th/id/R.e9ea962e02082e7e2c7f3815a71a8364?rik=26PM4sbj%2bd4yIw&pid=ImgRaw&r=0">
+                    <div class="info">
+                        <div class="title">Lorem Ipsum</div>
+                        <div class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="https://www.imagesource.com/wp-content/uploads/2019/06/Rio.jpg">
+                    <div class="info">
+                        <div class="title">Lorem Ipsum</div>
+                        <div class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main News -->
+        <h3 style="color: var(--title-color); margin-top: 20px; padding: 0 8px;">Notícias</h3>
+        <div class="j-news-list">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="j-news">
+                        <div class="image">
+                            <img src="https://www.blogenium.com/wp-content/uploads/2019/09/Blogenium-Miscellaneous-4K-Wallpapers-11.jpg"
+                                 alt="">
+                        </div>
+                        <div class="info">
+                            <div class="title">Lorem ipsum dollar lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
+                            <div class="date">12/03/2021</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="j-news">
+                        <div class="image">
+                            <img src="https://www.blogenium.com/wp-content/uploads/2019/09/Blogenium-Miscellaneous-4K-Wallpapers-11.jpg"
+                                 alt="">
+                        </div>
+                        <div class="info">
+                            <div class="title">Lorem ipsum dollar lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
+                            <div class="date">12/03/2021</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="j-news">
+                        <div class="image">
+                            <img src="https://www.blogenium.com/wp-content/uploads/2019/09/Blogenium-Miscellaneous-4K-Wallpapers-11.jpg"
+                                 alt="">
+                        </div>
+                        <div class="info">
+                            <div class="title">Lorem ipsum dollar lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
+                            <div class="date">12/03/2021</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="j-news">
+                        <div class="image">
+                            <img src="https://www.blogenium.com/wp-content/uploads/2019/09/Blogenium-Miscellaneous-4K-Wallpapers-11.jpg"
+                                 alt="">
+                        </div>
+                        <div class="info">
+                            <div class="title">Lorem ipsum dollar lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
+                            <div class="date">12/03/2021</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="j-news">
+                        <div class="image">
+                            <img src="https://www.blogenium.com/wp-content/uploads/2019/09/Blogenium-Miscellaneous-4K-Wallpapers-11.jpg"
+                                 alt="">
+                        </div>
+                        <div class="info">
+                            <div class="title">Lorem ipsum dollar lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
+                            <div class="date">12/03/2021</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="j-news">
+                        <div class="image">
+                            <img src="https://www.blogenium.com/wp-content/uploads/2019/09/Blogenium-Miscellaneous-4K-Wallpapers-11.jpg"
+                                 alt="">
+                        </div>
+                        <div class="info">
+                            <div class="title">Lorem ipsum dollar lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
+                            <div class="date">12/03/2021</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 
@@ -210,13 +289,11 @@
         const themeToggle = $(`#dark_theme_check`);
         const html = $('html');
 
-        theme == 'dark'
+        theme === 'dark'
             ? html.addClass('dark-mode')
             : html.removeClass('dark-mode');
 
-        themeToggle.prop('checked', theme == 'dark');
-        Fancybox.bind("[data-fancybox]");
-        loadFeed();
+        themeToggle.prop('checked', theme === 'dark');
     })
 
     function toggleDarkMode() {
@@ -230,86 +307,6 @@
             sessionStorage.setItem('theme', 'dark');
             html.addClass('dark-mode');
         }
-    }
-
-    function loadFeed() {
-        const container = $(`.j-feed`);
-        const data = [
-            {
-                id: 1,
-                title: 'PISTA DE CAMINHADA RECEBEU CAPINAÇÃO NESTA SEXTA-FEIRA (25) \n' +
-                    'Metade da Pista está feita.\n' +
-                    'Que bom, essa é a imagem que gostamos de ver, é o mínimo que o poder público deve fazer, deixar nossas pistas, praças e vielas limpas.\n' +
-                    'Agora nós devemos fazer nossa parte em não jogar lixos, entulhos,  barulhos e principalmente você que leva seu filho ou filha de patas 🐾  recolher seu 💩💩💩\n' +
-                    'Agradecemos a Senhor Secretário @fernandorubinelli por atender a população.',
-                media: [
-                    {
-                        picture_uri: 'https://vidacelular.com.br/wp-content/plugins/accelerated-mobile-pages/images/SD-default-image.png',
-                    },
-                ],
-                liked: false,
-                like_count: 200,
-                comment_count: 20,
-            },
-            {
-                id: 2,
-                title: 'Lançamento OUTONO 🍂\n' +
-                    'A nova estação já está chegando, e com isso nossos looks mais quentinhos já estão na áreaaaa!!!\n' +
-                    'Faça seu pedido no WhatsApp:\n' +
-                    '(11) 96449-9670 Camille \n' +
-                    '(11) 99524-3429 Madu \n' +
-                    'Ou venha até nossa loja física:\n' +
-                    'Rua Carlos de Campos n• 249 parque São Vicente Mauá',
-                media: [
-                    {
-                        picture_uri: 'https://vidacelular.com.br/wp-content/plugins/accelerated-mobile-pages/images/SD-default-image.png'
-                    },
-                    {
-                        picture_uri: 'https://vidacelular.com.br/wp-content/plugins/accelerated-mobile-pages/images/SD-default-image.png'
-                    },
-                    {
-                        picture_uri: 'https://vidacelular.com.br/wp-content/plugins/accelerated-mobile-pages/images/SD-default-image.png'
-                    },
-                    {
-                        picture_uri: 'https://vidacelular.com.br/wp-content/plugins/accelerated-mobile-pages/images/SD-default-image.png'
-                    },
-                    {
-                        picture_uri: 'https://vidacelular.com.br/wp-content/plugins/accelerated-mobile-pages/images/SD-default-image.png'
-                    },
-                ],
-                liked: true,
-                like_count: 20,
-                comment_count: 10,
-            },
-        ];
-
-        $.each(data, (i, val) => {
-            container.append(publication(val));
-        })
-    }
-
-    function publication(data) {
-        return `
-            <div class="j-publication">
-                <div class="title">${data.title}</div>
-                <div class="media">
-                     ${data.media.map(({picture_uri}) => `<div class="image"><img src="${picture_uri}" data-fancybox="pub-${data.id}" alt=""></div>`).join('')}
-                </div>
-                <div class="interactions">
-                    <div class="interaction ${data.liked ? 'liked' : ''}">
-                        <div class="icon">
-                            <i class="bi bi-star${data.liked ? '-fill' : ''}"></i>
-                        </div>
-                        <div class="count">${data.like_count}</div>
-                    </div>
-                    <div class="interaction">
-                        <div class="icon">
-                            <i class="bi bi-chat"></i>
-                        </div>
-                        <div class="count">${data.comment_count}</div>
-                    </div>
-                </div>
-            </div>`;
     }
 </script>
 </body>
