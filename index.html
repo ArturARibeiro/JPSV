@@ -104,27 +104,10 @@
             .j-carousel .carousel-item .info  {
                 padding: 16px;
             }
-        }
 
-        .j-responsive-card {
-            width: calc(25% - (3 * 16px) / 4);
-        }
-
-        @media screen and (max-width: 1280px) {
-            .j-responsive-card {
-                width: calc(33.33% - (2 * 16px) / 3);
-            }
-        }
-
-        @media screen and (max-width: 991px) {
-            .j-responsive-card {
-                width: calc(50% - 16px / 2);
-            }
-        }
-
-        @media screen and (max-width: 768px) {
-            .j-responsive-card {
-                width: 100%;
+            .j-carousel .carousel-control-prev,
+            .j-carousel .carousel-control-next {
+                display: none;
             }
         }
 
@@ -136,7 +119,6 @@
 
         .j-news-list .j-news {
             background: var(--container-bg);
-            margin-bottom: 16px;
             border-radius: 8px;
             display: flex;
             flex-direction: column;
@@ -182,7 +164,7 @@
 <main class="main">
     <nav class="j-navbar">
         <div class="j-navbar-menu full-size">
-            <a href="index.html" class="j-nav-item">
+            <a href="index.html" class="j-nav-item j-nav-item-profile">
                 <div class="icon picture">
                     <img src="https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg" alt="profile image"
                          class="j-image-cover">

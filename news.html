@@ -21,16 +21,35 @@
             overflow: hidden;
         }
 
-        .j-content .title {
-            font-size: 24pt;
-            font-weight: bold;
-            padding: 8px;
-        }
-
         .j-content .body {
             padding: 16px;
             border-radius: 8px;
+            background: var(--container-bg);
+            color: var(--text-color);
+        }
 
+        .j-content .body .title {
+            font-size: 24pt;
+            font-weight: bold;
+            margin-bottom: 16px;
+            border-bottom: solid 1px rgba(128, 128, 128, .5);
+            color: var(--title-color);
+            padding: 8px 0 16px;
+        }
+
+        @media screen and (max-width: 991px) {
+            .j-content .banner {
+                aspect-ratio: 5 / 3;
+            }
+
+            .j-content .body {
+                font-size: 11pt;
+                padding: 8px;
+            }
+
+            .j-content .body .title {
+                font-size: 14pt;
+            }
         }
     </style>
 </head>
@@ -70,13 +89,14 @@
 
     <div class="j-content">
         <div class="banner">
-            <img src="https://image.shutterstock.com/image-illustration/graphical-modern-digital-world-news-600w-1904997175.jpg"
+            <img src="https://cdn.pixabay.com/photo/2015/10/31/11/59/information-1015298_1280.jpg"
                  alt="banner image" class="j-image-cover">
         </div>
-        <div class="title">Informações sobre o que as notícias podem conter</div>
 
         <div class="body">
-            <h5>As notícias podem conter:</h5>
+            <div class="title">Informações sobre o que as notícias podem conter</div>
+
+            <h6>As notícias podem conter:</h6>
             <ul>
                 <li>Imagens</li>
                 <li>Videos</li>
@@ -84,7 +104,6 @@
                 <li>Outras paginas (Dependendo da permissão)</li>
                 <li>Interações (Dropdowns, botões, etc)</li>
             </ul>
-            <br>
             <p>O texto da notícias pode estar em <b>Negrito</b>, <i>Italico</i>, <u>Sublinhado</u> ou com <s>Linha sobre o texto</s>, entre outras alterações que temos em editores de texto</p>
             <p>A criação desses textos será feita a partir de um painel separado do site de notícias, onde lá você construirá o corpo de suas notícias utilizando a ferramenta
                 <a href="https://ckeditor.com/">CKEditor 5</a>, que se assemelha muito ao Microsoft Office Word, tendo assim uma curva de aprendisado menor</p>
@@ -152,7 +171,7 @@
 
     function parallax(elem) {
         const window = $(event.target);
-        const top = window.scrollTop() / 2;
+        const top = window.scrollTop() / 6;
         elem = $(elem);
 
         elem.css({
