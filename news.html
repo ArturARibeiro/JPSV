@@ -5,22 +5,32 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Categorias</title>
+    <title>Inicio</title>
 
     <link rel="stylesheet" href="./assets/css/app.css">
     <link rel="stylesheet" href="./assets/css/fancybox.css">
     <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <style>
-        .j-content {
+        .j-content .banner {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            font-size: 14pt;
-            color: var(--title-color);
+            width: 100%;
+            aspect-ratio: 21 / 8;
+            background: rgba(128, 128, 128, .3);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .j-content .title {
+            font-size: 24pt;
             font-weight: bold;
-            text-align: center;
+            padding: 8px;
+        }
+
+        .j-content .body {
+            padding: 16px;
+            border-radius: 8px;
+
         }
     </style>
 </head>
@@ -59,8 +69,26 @@
     </nav>
 
     <div class="j-content">
-        <i class="bi bi-info-circle" style="font-size: 30pt"></i>
-        O objetivo dessa tela é listar as categorias e suas respectivas notícias, <br> para facilitar os usuários a encontrar uma notícias de um certo assunto.
+        <div class="banner">
+            <img src="https://image.shutterstock.com/image-illustration/graphical-modern-digital-world-news-600w-1904997175.jpg"
+                 alt="banner image" class="j-image-cover">
+        </div>
+        <div class="title">Informações sobre o que as notícias podem conter</div>
+
+        <div class="body">
+            <h5>As notícias podem conter:</h5>
+            <ul>
+                <li>Imagens</li>
+                <li>Videos</li>
+                <li><a href="#">Links</a></li>
+                <li>Outras paginas (Dependendo da permissão)</li>
+                <li>Interações (Dropdowns, botões, etc)</li>
+            </ul>
+            <br>
+            <p>O texto da notícias pode estar em <b>Negrito</b>, <i>Italico</i>, <u>Sublinhado</u> ou com <s>Linha sobre o texto</s>, entre outras alterações que temos em editores de texto</p>
+            <p>A criação desses textos será feita a partir de um painel separado do site de notícias, onde lá você construirá o corpo de suas notícias utilizando a ferramenta
+                <a href="https://ckeditor.com/">CKEditor 5</a>, que se assemelha muito ao Microsoft Office Word, tendo assim uma curva de aprendisado menor</p>
+        </div>
     </div>
 </main>
 
@@ -107,17 +135,30 @@
         themeToggle.prop('checked', theme === 'dark');
     })
 
+    $(window).on('scroll', () => parallax($(`.banner img`)))
+
     function toggleDarkMode() {
         const theme = sessionStorage.getItem('theme');
         const html = $('html');
 
-        if (theme === 'dark') {
+        if (theme == 'dark') {
             sessionStorage.setItem('theme', 'light');
             html.removeClass('dark-mode');
         } else {
             sessionStorage.setItem('theme', 'dark');
             html.addClass('dark-mode');
         }
+    }
+
+    function parallax(elem) {
+        const window = $(event.target);
+        const top = window.scrollTop() / 2;
+        elem = $(elem);
+
+        elem.css({
+            position: 'relative',
+            top: top}
+        );
     }
 </script>
 </body>

@@ -27,28 +27,30 @@
 <body>
 <main class="main">
   <nav class="j-navbar">
-    <div class="j-navbar-user">
-      <div class="picture">
-        <img src="https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg" alt="user image">
-      </div>
-      <div class="name">Lorem Ipsum</div>
-    </div>
     <div class="j-navbar-menu full-size">
       <a href="index.html" class="j-nav-item">
-        <div class="icon"><i class="bi bi-newspaper"></i></div>
-        <div class="title">Notícias</div>
+        <div class="icon picture">
+          <img src="https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg" alt="profile image"
+               class="j-image-cover">
+        </div>
+        <div class="title">Profile</div>
       </a>
-      <a href="category.html" class="j-nav-item">
-        <div class="icon"><i class="bi bi-bookmarks"></i></div>
-        <div class="title">Categorias</div>
-      </a>
-      <a href="locales.html" class="j-nav-item active">
-        <div class="icon"><i class="bi bi-geo-alt"></i></div>
-        <div class="title">Locais</div>
-      </a>
-    </div>
 
-    <div class="j-navbar-menu">
+      <div class="nav-menu-group">
+        <a href="index.html" class="j-nav-item active">
+          <div class="icon"><i class="bi bi-newspaper"></i></div>
+          <div class="title">Notícias</div>
+        </a>
+        <a href="category.html" class="j-nav-item">
+          <div class="icon"><i class="bi bi-bookmarks"></i></div>
+          <div class="title">Categorias</div>
+        </a>
+        <a href="locales.html" class="j-nav-item">
+          <div class="icon"><i class="bi bi-geo-alt"></i></div>
+          <div class="title">Locais</div>
+        </a>
+      </div>
+
       <div class="j-nav-item" onclick="$(`#settings-modal`).modal('show')">
         <div class="icon"><i class="bi bi-gear"></i></div>
         <div class="title">Configurações</div>

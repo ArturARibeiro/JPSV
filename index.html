@@ -12,10 +12,32 @@
     <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <style>
-
         /* Content Area */
         .j-carousel {
+            position: relative;
             display: flex;
+        }
+
+        .j-carousel .carousel-indicators {
+            position: absolute;
+            top: calc(100% + 10px);
+            display: flex;
+            gap: 8px;
+        }
+
+        .j-carousel .carousel-indicators > * {
+            all: unset;
+            width: 12px;
+            height: 8px;
+            border-radius: 12px;
+            background: rgba(128, 128, 128, .3);
+            transition: all .2s ease;
+            cursor: pointer;
+        }
+
+        .j-carousel .carousel-indicators > *.active {
+            background: var(--action-color);
+            width: 24px;
         }
 
         .j-carousel .carousel-inner {
@@ -26,7 +48,7 @@
 
         .j-carousel .carousel-item  {
             width: 100%;
-            aspect-ratio: 3;
+            aspect-ratio: 21 / 9;
             position: relative;
         }
 
@@ -59,6 +81,21 @@
             color: #d2d2d2;
         }
 
+        .j-carousel .carousel-control-prev,
+        .j-carousel .carousel-control-next {
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, .8);
+            backdrop-filter: blur(3px);
+            position: absolute;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14pt;
+            margin: 0 24px;
+            height: 80px;
+            width: 50px;
+            top: 50%;
+        }
+
         @media screen and (max-width: 991px) {
             .j-carousel .carousel-item {
                 aspect-ratio: 1.5;
@@ -67,6 +104,34 @@
             .j-carousel .carousel-item .info  {
                 padding: 16px;
             }
+        }
+
+        .j-responsive-card {
+            width: calc(25% - (3 * 16px) / 4);
+        }
+
+        @media screen and (max-width: 1280px) {
+            .j-responsive-card {
+                width: calc(33.33% - (2 * 16px) / 3);
+            }
+        }
+
+        @media screen and (max-width: 991px) {
+            .j-responsive-card {
+                width: calc(50% - 16px / 2);
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .j-responsive-card {
+                width: 100%;
+            }
+        }
+
+        .j-news-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
         }
 
         .j-news-list .j-news {
@@ -80,8 +145,8 @@
         }
 
         .j-news-list .j-news .image {
-            height: 160px;
-            aspect-ratio: 1;
+            width: 100%;
+            aspect-ratio: 16 / 9;
             overflow: hidden;
             border-radius: 8px 2px 8px 2px;
         }
@@ -103,6 +168,7 @@
         .j-news-list .j-news .info .title {
             font-size: 12pt;
             color: var(--title-color);
+            text-decoration: none;
         }
 
         .j-news-list .j-news .info .date {
@@ -115,35 +181,30 @@
 <body>
 <main class="main">
     <nav class="j-navbar">
-<!--        <div class="j-navbar-brand">-->
-<!--            <div class="icon">-->
-<!--                <i class="bi bi-app"></i>-->
-<!--            </div>-->
-
-<!--            <div class="brand">Jornal Parque São Vincente</div>-->
-<!--        </div>-->
-        <div class="j-navbar-user">
-            <div class="picture">
-                <img src="https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg" alt="user image">
-            </div>
-            <div class="name">Lorem Ipsum</div>
-        </div>
         <div class="j-navbar-menu full-size">
-            <a href="index.html" class="j-nav-item active">
-                <div class="icon"><i class="bi bi-newspaper"></i></div>
-                <div class="title">Notícias</div>
+            <a href="index.html" class="j-nav-item">
+                <div class="icon picture">
+                    <img src="https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg" alt="profile image"
+                         class="j-image-cover">
+                </div>
+                <div class="title">Profile</div>
             </a>
-            <a href="category.html" class="j-nav-item">
-                <div class="icon"><i class="bi bi-bookmarks"></i></div>
-                <div class="title">Categorias</div>
-            </a>
-            <a href="locales.html" class="j-nav-item">
-                <div class="icon"><i class="bi bi-geo-alt"></i></div>
-                <div class="title">Locais</div>
-            </a>
-        </div>
 
-        <div class="j-navbar-menu">
+            <div class="nav-menu-group">
+                <a href="index.html" class="j-nav-item active">
+                    <div class="icon"><i class="bi bi-newspaper"></i></div>
+                    <div class="title">Notícias</div>
+                </a>
+                <a href="category.html" class="j-nav-item">
+                    <div class="icon"><i class="bi bi-bookmarks"></i></div>
+                    <div class="title">Categorias</div>
+                </a>
+                <a href="locales.html" class="j-nav-item">
+                    <div class="icon"><i class="bi bi-geo-alt"></i></div>
+                    <div class="title">Locais</div>
+                </a>
+            </div>
+
             <div class="j-nav-item" onclick="$(`#settings-modal`).modal('show')">
                 <div class="icon"><i class="bi bi-gear"></i></div>
                 <div class="title">Configurações</div>
@@ -154,99 +215,161 @@
     <div class="j-content">
         <!-- News Slider -->
         <div id="news-slider" class="carousel j-carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner carousel-fade">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#news-slider" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#news-slider" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#news-slider" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#news-slider" data-bs-slide-to="3" aria-label="Slide 4"></button>
+            </div>
+            <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="https://th.bing.com/th/id/R.e9ea962e02082e7e2c7f3815a71a8364?rik=26PM4sbj%2bd4yIw&pid=ImgRaw&r=0">
+                    <img src="https://image.shutterstock.com/image-photo/good-bad-news-concept-fliped-600w-1866716074.jpg">
                     <div class="info">
                         <div class="title">Lorem Ipsum</div>
                         <div class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="https://www.imagesource.com/wp-content/uploads/2019/06/Rio.jpg">
+                    <img src="https://image.shutterstock.com/image-illustration/3d-illustration-broadcast-economics-news-600w-1816000745.jpg">
                     <div class="info">
                         <div class="title">Lorem Ipsum</div>
                         <div class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
                     </div>
                 </div>
+                <div class="carousel-item">
+                    <img src="https://image.shutterstock.com/image-vector/3d-white-red-megaphone-flying-600w-1960999693.jpg">
+                    <div class="info">
+                        <div class="title">Lorem Ipsum</div>
+                        <div class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="https://image.shutterstock.com/image-illustration/national-tide-illustration-material-retro-600w-2037947600.jpg">
+                    <div class="info">
+                        <div class="title">Lorem ipsum dolor sit amet</div>
+                        <div class="description">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam atque autem dolore eaque error est excepturi fugiat laudantium libero minima, obcaecati reiciendis, sint sunt temporibus ut velit voluptatem. Harum?
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-control-prev" data-bs-target="#news-slider" data-bs-slide="prev">
+                <i class="bi bi-chevron-left"></i>
+            </div>
+            <div class="carousel-control-next" data-bs-target="#news-slider" data-bs-slide="next">
+                <i class="bi bi-chevron-right"></i>
             </div>
         </div>
 
         <!-- Main News -->
-        <h3 style="color: var(--title-color); margin-top: 20px; padding: 0 8px;">Notícias</h3>
+        <h3 style="color: var(--title-color); margin-top: 20px; padding: 0 8px;">Notícias recentes</h3>
         <div class="j-news-list">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="j-news">
-                        <div class="image">
-                            <img src="https://www.blogenium.com/wp-content/uploads/2019/09/Blogenium-Miscellaneous-4K-Wallpapers-11.jpg"
-                                 alt="">
-                        </div>
-                        <div class="info">
-                            <div class="title">Lorem ipsum dollar lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
-                            <div class="date">12/03/2021</div>
-                        </div>
-                    </div>
+            <div class="j-news j-responsive-card">
+                <a href="news.html" class="image">
+                    <img src="https://image.shutterstock.com/image-photo/online-news-mobile-phone-close-600w-1204164946.jpg"
+                         alt="">
+                </a>
+                <div class="info">
+                    <a href="news.html" class="title">Lorem ipsum dollar lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
+                    <div class="date">12/03/2021</div>
                 </div>
-                <div class="col-md-3">
-                    <div class="j-news">
-                        <div class="image">
-                            <img src="https://www.blogenium.com/wp-content/uploads/2019/09/Blogenium-Miscellaneous-4K-Wallpapers-11.jpg"
-                                 alt="">
-                        </div>
-                        <div class="info">
-                            <div class="title">Lorem ipsum dollar lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
-                            <div class="date">12/03/2021</div>
-                        </div>
-                    </div>
+            </div>
+            <div class="j-news j-responsive-card">
+                <a href="news.html" class="image">
+                    <img src="https://image.shutterstock.com/image-illustration/graphical-modern-digital-world-news-600w-1254971608.jpg"
+                         alt="">
+                </a>
+                <div class="info">
+                    <a href="news.html" class="title">Lorem ipsum dollar lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
+                    <div class="date">12/03/2021</div>
                 </div>
-                <div class="col-md-3">
-                    <div class="j-news">
-                        <div class="image">
-                            <img src="https://www.blogenium.com/wp-content/uploads/2019/09/Blogenium-Miscellaneous-4K-Wallpapers-11.jpg"
-                                 alt="">
-                        </div>
-                        <div class="info">
-                            <div class="title">Lorem ipsum dollar lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
-                            <div class="date">12/03/2021</div>
-                        </div>
-                    </div>
+            </div>
+            <div class="j-news j-responsive-card">
+                <a href="news.html" class="image">
+                    <img src="https://image.shutterstock.com/image-photo/man-reading-news-on-tablet-600w-726843034.jpg"
+                         alt="">
+                </a>
+                <div class="info">
+                    <a href="news.html" class="title">Lorem ipsum dollar lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
+                    <div class="date">12/03/2021</div>
                 </div>
-                <div class="col-md-3">
-                    <div class="j-news">
-                        <div class="image">
-                            <img src="https://www.blogenium.com/wp-content/uploads/2019/09/Blogenium-Miscellaneous-4K-Wallpapers-11.jpg"
-                                 alt="">
-                        </div>
-                        <div class="info">
-                            <div class="title">Lorem ipsum dollar lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
-                            <div class="date">12/03/2021</div>
-                        </div>
-                    </div>
+            </div>
+            <div class="j-news j-responsive-card">
+                <a href="news.html" class="image">
+                    <img src="https://image.shutterstock.com/image-photo/woman-reading-online-news-on-600w-1024804060.jpg"
+                         alt="">
+                </a>
+                <div class="info">
+                    <a href="news.html" class="title">Lorem ipsum dollar lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
+                    <div class="date">12/03/2021</div>
                 </div>
-                <div class="col-md-3">
-                    <div class="j-news">
-                        <div class="image">
-                            <img src="https://www.blogenium.com/wp-content/uploads/2019/09/Blogenium-Miscellaneous-4K-Wallpapers-11.jpg"
-                                 alt="">
-                        </div>
-                        <div class="info">
-                            <div class="title">Lorem ipsum dollar lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
-                            <div class="date">12/03/2021</div>
-                        </div>
-                    </div>
+            </div>
+            <div class="j-news j-responsive-card">
+                <a href="news.html" class="image">
+                    <img src="https://image.shutterstock.com/image-photo/novel-coronavirus-breaking-news-headline-600w-1645560877.jpg"
+                         alt="">
+                </a>
+                <div class="info">
+                    <a href="news.html" class="title">Lorem ipsum dollar lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
+                    <div class="date">12/03/2021</div>
                 </div>
-                <div class="col-md-3">
-                    <div class="j-news">
-                        <div class="image">
-                            <img src="https://www.blogenium.com/wp-content/uploads/2019/09/Blogenium-Miscellaneous-4K-Wallpapers-11.jpg"
-                                 alt="">
-                        </div>
-                        <div class="info">
-                            <div class="title">Lorem ipsum dollar lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
-                            <div class="date">12/03/2021</div>
-                        </div>
-                    </div>
+            </div>
+            <div class="j-news j-responsive-card">
+                <a href="news.html" class="image">
+                    <img src="https://image.shutterstock.com/image-vector/breaking-news-world-map-backgorund-600w-640991758.jpg"
+                         alt="">
+                </a>
+                <div class="info">
+                    <a href="news.html" class="title">Lorem ipsum dollar lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
+                    <div class="date">12/03/2021</div>
+                </div>
+            </div>
+            <div class="j-news j-responsive-card">
+                <a href="news.html" class="image">
+                    <img src="https://image.shutterstock.com/image-photo/cool-group-people-woman-man-600w-1100778086.jpg"
+                         alt="">
+                </a>
+                <div class="info">
+                    <a href="news.html" class="title">Lorem ipsum dollar lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
+                    <div class="date">12/03/2021</div>
+                </div>
+            </div>
+            <div class="j-news j-responsive-card">
+                <a href="news.html" class="image">
+                    <img src="https://image.shutterstock.com/image-photo/close-on-hands-caucasian-man-600w-1950559648.jpg"
+                         alt="">
+                </a>
+                <div class="info">
+                    <a href="news.html" class="title">Lorem ipsum dollar lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
+                    <div class="date">12/03/2021</div>
+                </div>
+            </div>
+            <div class="j-news j-responsive-card">
+                <a href="news.html" class="image">
+                    <img src="https://image.shutterstock.com/image-vector/news-concept-marketing-time-realistic-600w-2086504231.jpg" alt="">
+                </a>
+                <div class="info">
+                    <a href="news.html" class="title">Lorem ipsum dollar lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
+                    <div class="date">12/03/2021</div>
+                </div>
+            </div>
+            <div class="j-news j-responsive-card">
+                <a href="news.html" class="image">
+                    <img src="https://image.shutterstock.com/image-illustration/cartoon-style-minimal-newspaper-icon-600w-1672962454.jpg" alt="">
+                </a>
+                <div class="info">
+                    <a href="news.html" class="title">Lorem ipsum dollar lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
+                    <div class="date">12/03/2021</div>
+                </div>
+            </div>
+            <div class="j-news j-responsive-card">
+                <a href="news.html" class="image">
+                    <img src="https://image.shutterstock.com/image-vector/life-corona-virus-news-background-600w-1686639847.jpg" alt="">
+                </a>
+                <div class="info">
+                    <a href="news.html" class="title">Lorem ipsum dollar lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
+                    <div class="date">12/03/2021</div>
                 </div>
             </div>
         </div>
