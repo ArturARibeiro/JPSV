@@ -314,12 +314,18 @@ body {
         right: 0;
         top: initial;
         flex-direction: row;
+        justify-content: space-around;
         border-radius: 0;
         max-width: 100%;
         width: 100%;
     }
 
+    .j-navbar .j-navbar-menu > * {
+        display: none !important;
+    }
+
     .j-navbar .j-navbar-menu .nav-menu-group {
+        display: flex !important;
         flex-direction: row;
         justify-content: space-around;
         flex: 1;
@@ -367,6 +373,101 @@ body {
         font-size: 8pt !important;
     }
 }
+
+.float-navbar {
+    display: none;
+}
+
+@media screen and (max-width: 991px) {
+    .float-navbar {
+        display: flex;
+    }
+}
+
+.float-navbar {
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--container-bg);
+    top: 16px;
+    left: 16px;
+    z-index: 999;
+    transition: all .2s ease;
+}
+
+.float-navbar:after,
+.float-navbar:before {
+    position: absolute;
+    content: '';
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    height: 2px;
+    background: var(--title-color);
+    border-radius: 3px;
+    box-shadow: 0 6px 0 var(--title-color), 0 -6px 0 var(--title-color);
+    transition: all .3s ease;
+}
+
+.float-navbar.active {
+    box-shadow: 0 0 0 calc(100vh + 100vw) var(--container-bg);
+}
+
+.float-navbar.active:before {
+    transform: translate(-50%, -50%) rotate(45deg);
+    box-shadow: none;
+}
+
+.float-navbar.active:after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+    box-shadow: none;
+}
+
+.float-navbar .float-navbar-menu {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity .1s linear;
+    pointer-events: none;
+    padding: 16px;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    gap: 8px;
+    z-index: -1;
+}
+
+.float-navbar.active .float-navbar-menu {
+    pointer-events: all;
+    opacity: 1;
+}
+
+.float-navbar.active .float-navbar-menu {
+    pointer-events: all;
+    opacity: 1;
+}
+
+.float-navbar .float-navbar-menu .float-navbar-menu-item {
+    font-size: clamp(14pt, 10vw, 20pt);
+    text-align: center;
+    border-radius: 8px;
+    padding: 8px;
+    width: 100%;
+}
+
+.float-navbar .float-navbar-menu .float-navbar-menu-item:active {
+    background: rgba(128, 128, 128, .1);
+}
+
 
 /* Modal styles */
 .j-modal-content {

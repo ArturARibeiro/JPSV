@@ -48,7 +48,7 @@
 
         .j-carousel .carousel-item  {
             width: 100%;
-            aspect-ratio: 21 / 9;
+            max-height: 60vh;
             position: relative;
         }
 
@@ -98,7 +98,8 @@
 
         @media screen and (max-width: 991px) {
             .j-carousel .carousel-item {
-                aspect-ratio: 1.5;
+                height: 70vh;
+                max-height: 70vh;
             }
 
             .j-carousel .carousel-item .info  {
@@ -192,6 +193,13 @@
                 <div class="title">Configurações</div>
             </div>
         </div>
+    </nav>
+
+    <nav class="float-navbar" onclick="toggleFloatMenu()">
+        <ul class="float-navbar-menu">
+            <li class="float-navbar-menu-item">Perfil</li>
+            <li class="float-navbar-menu-item"  onclick="$(`#settings-modal`).modal('show')">Configurações</li>
+        </ul>
     </nav>
 
     <div class="j-content">
@@ -412,6 +420,11 @@
             sessionStorage.setItem('theme', 'dark');
             html.addClass('dark-mode');
         }
+    }
+
+    function toggleFloatMenu() {
+        const target = $(event.target);
+        if (target.hasClass('float-navbar')) target.toggleClass('active');
     }
 </script>
 </body>

@@ -57,7 +57,7 @@
 <main class="main">
     <nav class="j-navbar">
         <div class="j-navbar-menu full-size">
-            <a href="index.html" class="j-nav-item">
+            <a href="index.html" class="j-nav-item j-nav-item-profile">
                 <div class="icon picture">
                     <img src="https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg" alt="profile image"
                          class="j-image-cover">
@@ -85,6 +85,13 @@
                 <div class="title">Configurações</div>
             </div>
         </div>
+    </nav>
+
+    <nav class="float-navbar" onclick="toggleFloatMenu()">
+        <ul class="float-navbar-menu">
+            <li class="float-navbar-menu-item">Perfil</li>
+            <li class="float-navbar-menu-item"  onclick="$(`#settings-modal`).modal('show')">Configurações</li>
+        </ul>
     </nav>
 
     <div class="j-content">
@@ -178,6 +185,11 @@
             position: 'relative',
             top: top}
         );
+    }
+
+    function toggleFloatMenu() {
+        const target = $(event.target);
+        if (target.hasClass('float-navbar')) target.toggleClass('active');
     }
 </script>
 </body>

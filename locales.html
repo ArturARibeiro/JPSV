@@ -58,6 +58,13 @@
     </div>
   </nav>
 
+  <nav class="float-navbar" onclick="toggleFloatMenu()">
+    <ul class="float-navbar-menu">
+      <li class="float-navbar-menu-item">Perfil</li>
+      <li class="float-navbar-menu-item"  onclick="$(`#settings-modal`).modal('show')">Configurações</li>
+    </ul>
+  </nav>
+
   <div class="j-content">
     <i class="bi bi-info-circle" style="font-size: 30pt"></i>
     O objetivo dessa tela é exibir um mapa do bairro com alguns pontos marcados, como restaurantes, <br> lanchonetes, salões, entre outros comércios ou pontos para a visita dos usuários.
@@ -118,6 +125,11 @@
       sessionStorage.setItem('theme', 'dark');
       html.addClass('dark-mode');
     }
+  }
+
+  function toggleFloatMenu() {
+    const target = $(event.target);
+    if (target.hasClass('float-navbar')) target.toggleClass('active');
   }
 </script>
 </body>
