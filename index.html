@@ -56,24 +56,28 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to top, rgba(0, 0, 0, .7) 40%, rgba(0, 0, 0, .1));
+            background: linear-gradient(to bottom, rgba(0, 0, 0, .2) 40%, rgba(0, 0, 0, .6));
             content: '';
+            z-index: 1;
         }
 
         .j-carousel .carousel-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            user-select: none;
         }
 
         .j-carousel .carousel-item .info  {
             position: absolute;
             bottom: 0;
-            padding: 32px;
+            padding: 40px;
+            z-index: 2;
         }
 
         .j-carousel .carousel-item .info .title  {
             font-size: clamp(12pt, 2.5vw, 25pt);
+            font-weight: bold;
             color: white;
         }
 
@@ -149,13 +153,13 @@
         }
 
         .j-news-list .j-news .info .title {
-            font-size: 12pt;
+            font-size: var(--title-size);
             color: var(--title-color);
             text-decoration: none;
         }
 
         .j-news-list .j-news .info .date {
-            font-size: 8pt;
+            font-size: var(--text-size);
             color: var(--text-color);
             padding: 8px 0;
         }
@@ -186,8 +190,8 @@
                     <div class="title">Notícias</div>
                 </a>
                 <a href="category.html" class="j-nav-item">
-                    <div class="icon"><i class="bi bi-bookmarks"></i></div>
-                    <div class="title">Categorias</div>
+                    <div class="icon"><i class="bi bi-search"></i></div>
+                    <div class="title">Buscar</div>
                 </a>
                 <a href="locales.html" class="j-nav-item">
                     <div class="icon"><i class="bi bi-geo-alt"></i></div>
@@ -409,6 +413,8 @@
         themeToggle.prop('checked', theme === 'dark');
     })
 
+    $(window).on('scroll', () => parallax($(`.j-carousel img`), 3.5))
+
     function toggleDarkMode() {
         const theme = sessionStorage.getItem('theme');
         const html = $('html');
@@ -425,6 +431,17 @@
     function toggleFloatMenu() {
         const target = $(event.target);
         if (target.hasClass('float-navbar')) target.toggleClass('active');
+    }
+
+    function parallax(elem, weight) {
+        const window = $(event.target);
+        const top = window.scrollTop() / weight;
+        elem = $(elem);
+
+        elem.css({
+            position: 'relative',
+            top: top}
+        );
     }
 </script>
 </body>

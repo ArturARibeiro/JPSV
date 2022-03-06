@@ -14,19 +14,38 @@
     <style>
         .j-content {
             display: flex;
+            flex-direction: column;
+        }
+
+        .j-content .search-container {
+            position: fixed;
+            right: 16px;
+            top: 16px;
+            width: calc(100vw - 90px);
+            height: 50px;
+            display: flex;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
-            font-size: 14pt;
-            color: var(--title-color);
-            font-weight: bold;
-            text-align: center;
+            max-width: 500px;
+            gap: 8px;
+        }
+
+        .j-content .search-container .search-input {
+            position: relative;
+            flex: 1;
+        }
+
+        .j-content .search-container .search-input .j-input {
+            height: 45px;
+        }
+
+        .j-content .search-container .search-button {
+            width: fit-content;
+            height: 45px;
         }
     </style>
 </head>
 <body>
 <main class="main">
-
     <nav class="float-navbar" onclick="toggleFloatMenu()">
         <ul class="float-navbar-menu">
             <li class="float-navbar-menu-item">Perfil</li>
@@ -45,13 +64,13 @@
             </a>
 
             <div class="nav-menu-group">
-                <a href="index.html" class="j-nav-item ">
+                <a href="index.html" class="j-nav-item">
                     <div class="icon"><i class="bi bi-newspaper"></i></div>
                     <div class="title">Notícias</div>
                 </a>
                 <a href="category.html" class="j-nav-item active">
-                    <div class="icon"><i class="bi bi-bookmarks"></i></div>
-                    <div class="title">Categorias</div>
+                    <div class="icon"><i class="bi bi-search"></i></div>
+                    <div class="title">Buscar</div>
                 </a>
                 <a href="locales.html" class="j-nav-item">
                     <div class="icon"><i class="bi bi-geo-alt"></i></div>
@@ -67,8 +86,13 @@
     </nav>
 
     <div class="j-content">
-        <i class="bi bi-info-circle" style="font-size: 30pt"></i>
-        O objetivo dessa tela é listar as categorias e suas respectivas notícias, <br> para facilitar os usuários a encontrar uma notícias de um certo assunto.
+        <div class="search-container">
+            <label class="search-input">
+                <input type="text" class="j-input" minlength="1" required>
+                <span class="label">Buscar notícia</span>
+            </label>
+            <button class="j-btn search-button"><i class="bi bi-search"></i></button>
+        </div>
     </div>
 </main>
 

@@ -1,101 +1,363 @@
 <!doctype html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Categorias</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Categorias</title>
 
-  <link rel="stylesheet" href="./assets/css/app.css">
-  <link rel="stylesheet" href="./assets/css/fancybox.css">
-  <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-  <style>
-    .j-content {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      font-size: 14pt;
-      color: var(--title-color);
-      font-weight: bold;
-      text-align: center;
-    }
-  </style>
+    <link rel="stylesheet" href="./assets/css/app.css">
+    <link rel="stylesheet" href="./assets/css/fancybox.css">
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <style>
+        .j-content {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            height: auto;
+        }
+
+        .j-content .j-maps {
+            flex: 1;
+            max-height: 400px;
+            background: rgba(128, 128, 128, .4);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .j-content .j-locales-list {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            overflow-x: hidden;
+            max-height: 100vh;
+            gap: 8px;
+        }
+
+        .j-content .j-locales-list .j-locales-list-item {
+            padding: 8px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background-color: var(--container-bg);
+            cursor: pointer;
+        }
+
+        .j-content .j-locales-list .j-locales-list-item .image {
+            width: 50px;
+            height: 50px;
+            min-width: 50px;
+            border-radius: 6px;
+            overflow: hidden;
+            background-color: rgba(128, 128, 128, .5);
+        }
+
+        .j-content .j-locales-list .j-locales-list-item .info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .j-content .j-locales-list .j-locales-list-item .info .title {
+            color: var(--title-color);
+            font-size: var(--title-size);
+            font-weight: bold;
+        }
+
+        .j-content .j-locales-list .j-locales-list-item .actions {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            padding: 0 8px;
+            gap: 16px;
+        }
+
+        .j-content .j-locales-list .j-locales-list-item .actions .action {
+            padding: 0 8px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--title-size);
+            color: var(--title-color);
+        }
+
+        .j-content .j-locales-list .j-locales-list-item .actions .action:hover {
+            color: var(--action-color);
+        }
+
+        @media screen and (max-width: 991px) {
+            .j-content {
+                flex-direction: column !important;
+            }
+
+            .j-content .j-locales-list {
+                max-height: calc(100vh - 250px);
+            }
+        }
+    </style>
 </head>
 <body>
 <main class="main">
 
-  <nav class="float-navbar" onclick="toggleFloatMenu()">
-    <ul class="float-navbar-menu">
-      <li class="float-navbar-menu-item">Perfil</li>
-      <li class="float-navbar-menu-item"  onclick="$(`#settings-modal`).modal('show')">Configurações</li>
-    </ul>
-  </nav>
+    <nav class="float-navbar" onclick="toggleFloatMenu()">
+        <ul class="float-navbar-menu">
+            <li class="float-navbar-menu-item">Perfil</li>
+            <li class="float-navbar-menu-item"  onclick="$(`#settings-modal`).modal('show')">Configurações</li>
+        </ul>
+    </nav>
 
-  <nav class="j-navbar">
-    <div class="j-navbar-menu full-size">
-      <a href="index.html" class="j-nav-item j-nav-item-profile">
-        <div class="icon picture">
-          <img src="https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg" alt="profile image"
-               class="j-image-cover">
+    <nav class="j-navbar">
+        <div class="j-navbar-menu full-size">
+            <a href="index.html" class="j-nav-item j-nav-item-profile">
+                <div class="icon picture">
+                    <img src="https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg" alt="profile image"
+                         class="j-image-cover">
+                </div>
+                <div class="title">Profile</div>
+            </a>
+
+            <div class="nav-menu-group">
+                <a href="index.html" class="j-nav-item ">
+                    <div class="icon"><i class="bi bi-newspaper"></i></div>
+                    <div class="title">Notícias</div>
+                </a>
+                <a href="category.html" class="j-nav-item">
+                    <div class="icon"><i class="bi bi-search"></i></div>
+                    <div class="title">Buscar</div>
+                </a>
+                <a href="locales.html" class="j-nav-item active">
+                    <div class="icon"><i class="bi bi-geo-alt"></i></div>
+                    <div class="title">Locais</div>
+                </a>
+            </div>
+
+            <div class="j-nav-item" onclick="$(`#settings-modal`).modal('show')">
+                <div class="icon"><i class="bi bi-gear"></i></div>
+                <div class="title">Configurações</div>
+            </div>
         </div>
-        <div class="title">Profile</div>
-      </a>
+    </nav>
 
-      <div class="nav-menu-group">
-        <a href="index.html" class="j-nav-item ">
-          <div class="icon"><i class="bi bi-newspaper"></i></div>
-          <div class="title">Notícias</div>
-        </a>
-        <a href="category.html" class="j-nav-item">
-          <div class="icon"><i class="bi bi-bookmarks"></i></div>
-          <div class="title">Categorias</div>
-        </a>
-        <a href="locales.html" class="j-nav-item active">
-          <div class="icon"><i class="bi bi-geo-alt"></i></div>
-          <div class="title">Locais</div>
-        </a>
-      </div>
+    <div class="j-content">
+        <div class="j-maps">
+            <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7308.365803186889!2d-46.48334737245888!3d-23.66941631220644!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce6975d9e58e0b%3A0x2b5f9e54f5c0d0ba!2sParque%20Sao%20Vicente%2C%20Mau%C3%A1%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1646588180688!5m2!1spt-BR!2sbr"
+                    style="border:0;" allowfullscreen="" loading="lazy" class="j-image-cover"></iframe>
+        </div>
 
-      <div class="j-nav-item" onclick="$(`#settings-modal`).modal('show')">
-        <div class="icon"><i class="bi bi-gear"></i></div>
-        <div class="title">Configurações</div>
-      </div>
+        <div class="j-locales-list">
+            <div class="j-locales-list-item">
+                <div class="image">
+                    <img src="data:image/png;base64,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"
+                         alt="" class="j-image-cover">
+                </div>
+                <div class="info">
+                    <div class="title">Lorem Ipsum</div>
+                    <div class="location">Rua Lorem Ipsum, Nº 000, Parque São Vicente, Mauá</div>
+                </div>
+                <div class="actions">
+                    <a href="https://goo.gl/maps/Nnqz8AXVAux1pvGD8" class="action" title="Copiar link">
+                        <i class="bi bi-files" style="font-size: 12pt"></i>
+                    </a>
+                    <a href="maps://maps.google.com/maps" class="action" title="Abrir em outra guia">
+                        <i class="bi bi-box-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="j-locales-list-item">
+                <div class="image">
+                    <img src="data:image/png;base64,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"
+                         alt="" class="j-image-cover">
+                </div>
+                <div class="info">
+                    <div class="title">Lorem Ipsum</div>
+                    <div class="location">Rua Lorem Ipsum, Nº 000, Parque São Vicente, Mauá</div>
+                </div>
+                <div class="actions">
+                    <a href="https://goo.gl/maps/Nnqz8AXVAux1pvGD8" class="action" title="Copiar link">
+                        <i class="bi bi-files" style="font-size: 12pt"></i>
+                    </a>
+                    <a href="maps://maps.google.com/maps" class="action" title="Abrir em outra guia">
+                        <i class="bi bi-box-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="j-locales-list-item">
+                <div class="image">
+                    <img src="https://iguatemi.com.br/saocarlos/sites/saocarlos/files/2018-04/Burguer.png" alt=""
+                         class="j-image-cover">
+                </div>
+                <div class="info">
+                    <div class="title">Lorem Ipsum</div>
+                    <div class="location">Rua Lorem Ipsum, Nº 000, Parque São Vicente, Mauá</div>
+                </div>
+                <div class="actions">
+                    <a href="https://goo.gl/maps/Nnqz8AXVAux1pvGD8" class="action" title="Copiar link">
+                        <i class="bi bi-files" style="font-size: 12pt"></i>
+                    </a>
+                    <a href="maps://maps.google.com/maps" class="action" title="Abrir em outra guia">
+                        <i class="bi bi-box-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="j-locales-list-item">
+                <div class="image">
+                    <img src="http://gsobmidia.com.br/uploads/lojas/1735/ultrafarma-popular-1_1621271623.png" alt=""
+                         class="j-image-cover">
+                </div>
+                <div class="info">
+                    <div class="title">Lorem Ipsum</div>
+                    <div class="location">Rua Lorem Ipsum, Nº 000, Parque São Vicente, Mauá</div>
+                </div>
+                <div class="actions">
+                    <a href="https://goo.gl/maps/Nnqz8AXVAux1pvGD8" class="action" title="Copiar link">
+                        <i class="bi bi-files" style="font-size: 12pt"></i>
+                    </a>
+                    <a href="maps://maps.google.com/maps" class="action" title="Abrir em outra guia">
+                        <i class="bi bi-box-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="j-locales-list-item">
+                <div class="image">
+                    <img src="https://www.socioesquadrao.com.br/wp-content/uploads/2016/08/drogaria-sp-logo-300x300.png" alt=""
+                         class="j-image-cover">
+                </div>
+                <div class="info">
+                    <div class="title">Lorem Ipsum</div>
+                    <div class="location">Rua Lorem Ipsum, Nº 000, Parque São Vicente, Mauá</div>
+                </div>
+                <div class="actions">
+                    <a href="https://goo.gl/maps/Nnqz8AXVAux1pvGD8" class="action" title="Copiar link">
+                        <i class="bi bi-files" style="font-size: 12pt"></i>
+                    </a>
+                    <a href="maps://maps.google.com/maps" class="action" title="Abrir em outra guia">
+                        <i class="bi bi-box-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="j-locales-list-item">
+                <div class="image">
+                    <img src="https://static.rfstat.com/logo-presets/3082/thumbnail_bc9ff98be096_1x.webp" alt=""
+                         class="j-image-cover">
+                </div>
+                <div class="info">
+                    <div class="title">Lorem Ipsum</div>
+                    <div class="location">Rua Lorem Ipsum, Nº 000, Parque São Vicente, Mauá</div>
+                </div>
+                <div class="actions">
+                    <a href="https://goo.gl/maps/Nnqz8AXVAux1pvGD8" class="action" title="Copiar link">
+                        <i class="bi bi-files" style="font-size: 12pt"></i>
+                    </a>
+                    <a href="maps://maps.google.com/maps" class="action" title="Abrir em outra guia">
+                        <i class="bi bi-box-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="j-locales-list-item">
+                <div class="image">
+                    <img src="https://play-lh.googleusercontent.com/69APU4nlfToTyHXuIme8p_wpk3FRc9hua3ufOhdy53XCFt3flhQiKVCtrg8V9gQx9ME" alt=""
+                         class="j-image-cover">
+                </div>
+                <div class="info">
+                    <div class="title">Lorem Ipsum</div>
+                    <div class="location">Rua Lorem Ipsum, Nº 000, Parque São Vicente, Mauá</div>
+                </div>
+                <div class="actions">
+                    <a href="https://goo.gl/maps/Nnqz8AXVAux1pvGD8" class="action" title="Copiar link">
+                        <i class="bi bi-files" style="font-size: 12pt"></i>
+                    </a>
+                    <a href="maps://maps.google.com/maps" class="action" title="Abrir em outra guia">
+                        <i class="bi bi-box-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="j-locales-list-item">
+                <div class="image">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRJV85k4RJB3uVA97PTdbTfPHaOoVU1wQ13KDEMgFnhEbukvo7Bjm6no283oE7g7yMIDU&usqp=CAU" alt=""
+                         class="j-image-cover">
+                </div>
+                <div class="info">
+                    <div class="title">Lorem Ipsum</div>
+                    <div class="location">Rua Lorem Ipsum, Nº 000, Parque São Vicente, Mauá</div>
+                </div>
+                <div class="actions">
+                    <a href="https://goo.gl/maps/Nnqz8AXVAux1pvGD8" class="action" title="Copiar link">
+                        <i class="bi bi-files" style="font-size: 12pt"></i>
+                    </a>
+                    <a href="maps://maps.google.com/maps" class="action" title="Abrir em outra guia">
+                        <i class="bi bi-box-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="j-locales-list-item">
+                <div class="image">
+                    <img src="https://carrinho.extra.com.br/_next/static/capa-imagem.af7b8aab.jpg" alt=""
+                         class="j-image-cover">
+                </div>
+                <div class="info">
+                    <div class="title">Lorem Ipsum</div>
+                    <div class="location">Rua Lorem Ipsum, Nº 000, Parque São Vicente, Mauá</div>
+                </div>
+                <div class="actions">
+                    <a href="https://goo.gl/maps/Nnqz8AXVAux1pvGD8" class="action" title="Copiar link">
+                        <i class="bi bi-files" style="font-size: 12pt"></i>
+                    </a>
+                    <a href="maps://maps.google.com/maps" class="action" title="Abrir em outra guia">
+                        <i class="bi bi-box-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="j-locales-list-item">
+                <div class="image">
+                    <img src="https://shoppingtaboao.com.br/lojas_files/20092.jpg" alt=""
+                         class="j-image-cover">
+                </div>
+                <div class="info">
+                    <div class="title">Lorem Ipsum</div>
+                    <div class="location">Rua Lorem Ipsum, Nº 000, Parque São Vicente, Mauá</div>
+                </div>
+                <div class="actions">
+                    <a href="https://goo.gl/maps/Nnqz8AXVAux1pvGD8" class="action" title="Copiar link">
+                        <i class="bi bi-files" style="font-size: 12pt"></i>
+                    </a>
+                    <a href="maps://maps.google.com/maps" class="action" title="Abrir em outra guia">
+                        <i class="bi bi-box-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
-  </nav>
-
-  <div class="j-content">
-    <i class="bi bi-info-circle" style="font-size: 30pt"></i>
-    O objetivo dessa tela é exibir um mapa do bairro com alguns pontos marcados, como restaurantes, <br> lanchonetes, salões, entre outros comércios ou pontos para a visita dos usuários.
-  </div>
 </main>
 
 <div class="modal" tabindex="-1" id="settings-modal">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content j-modal-content j-modal-popup">
-      <div class="modal-header">
-        <div class="modal-title">Configurações</div>
-        <div class="close" data-bs-dismiss="modal"><i class="bi bi-x"></i></div>
-      </div>
-      <div class="modal-body">
-        <div class="j-settings-list">
-          <label class="setting-item">
-            Tema escuro
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content j-modal-content j-modal-popup">
+            <div class="modal-header">
+                <div class="modal-title">Configurações</div>
+                <div class="close" data-bs-dismiss="modal"><i class="bi bi-x"></i></div>
+            </div>
+            <div class="modal-body">
+                <div class="j-settings-list">
+                    <label class="setting-item">
+                        Tema escuro
 
-            <span class="toggle">
+                        <span class="toggle">
                             <input type="checkbox" id="dark_theme_check" onchange="toggleDarkMode()" hidden>
                             <span class="dot">
                                 <i class="bi bi-moon-fill display-in-dark"></i>
                                 <i class="bi bi-sun-fill display-in-light"></i>
                             </span>
                         </span>
-          </label>
+                    </label>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 
 <script src="./assets/js/bootstrap.bundle.min.js"></script>
@@ -103,35 +365,35 @@
 <script src="./assets/js/jquery.js"></script>
 
 <script>
-  $(() => {
-    const theme = sessionStorage.getItem('theme');
-    const themeToggle = $(`#dark_theme_check`);
-    const html = $('html');
+    $(() => {
+        const theme = sessionStorage.getItem('theme');
+        const themeToggle = $(`#dark_theme_check`);
+        const html = $('html');
 
-    theme === 'dark'
+        theme === 'dark'
             ? html.addClass('dark-mode')
             : html.removeClass('dark-mode');
 
-    themeToggle.prop('checked', theme === 'dark');
-  })
+        themeToggle.prop('checked', theme === 'dark');
+    })
 
-  function toggleDarkMode() {
-    const theme = sessionStorage.getItem('theme');
-    const html = $('html');
+    function toggleDarkMode() {
+        const theme = sessionStorage.getItem('theme');
+        const html = $('html');
 
-    if (theme === 'dark') {
-      sessionStorage.setItem('theme', 'light');
-      html.removeClass('dark-mode');
-    } else {
-      sessionStorage.setItem('theme', 'dark');
-      html.addClass('dark-mode');
+        if (theme === 'dark') {
+            sessionStorage.setItem('theme', 'light');
+            html.removeClass('dark-mode');
+        } else {
+            sessionStorage.setItem('theme', 'dark');
+            html.addClass('dark-mode');
+        }
     }
-  }
 
-  function toggleFloatMenu() {
-    const target = $(event.target);
-    if (target.hasClass('float-navbar')) target.toggleClass('active');
-  }
+    function toggleFloatMenu() {
+        const target = $(event.target);
+        if (target.hasClass('float-navbar')) target.toggleClass('active');
+    }
 </script>
 </body>
 </html>
