@@ -55,6 +55,13 @@
 </head>
 <body>
 <main class="main">
+    <nav class="float-navbar" onclick="toggleFloatMenu()">
+        <ul class="float-navbar-menu">
+            <li class="float-navbar-menu-item">Perfil</li>
+            <li class="float-navbar-menu-item"  onclick="$(`#settings-modal`).modal('show')">Configurações</li>
+        </ul>
+    </nav>
+
     <nav class="j-navbar">
         <div class="j-navbar-menu full-size">
             <a href="index.html" class="j-nav-item j-nav-item-profile">
@@ -85,13 +92,6 @@
                 <div class="title">Configurações</div>
             </div>
         </div>
-    </nav>
-
-    <nav class="float-navbar" onclick="toggleFloatMenu()">
-        <ul class="float-navbar-menu">
-            <li class="float-navbar-menu-item">Perfil</li>
-            <li class="float-navbar-menu-item"  onclick="$(`#settings-modal`).modal('show')">Configurações</li>
-        </ul>
     </nav>
 
     <div class="j-content">
